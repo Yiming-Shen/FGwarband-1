@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bands</title>
+<style>
+table, th, td { border: 1px solid black; text-align: left; }
+</style>
+</head>
+<body>
+<h1>Public Bands</h1>
+<table>
+{% for user in public_band.keys() %}
+    {% for band in public_band[user] %}
+<tr><td><a href="/view/{{user}}/{{band}}">{{user}}___{{band}}</a></td></tr>
+    {% endfor %}
+{% endfor %}
+</table>
+
+</form>
+<br><br>
+<input id="back" type="button" value="Back to Holderpage" onclick="window.location.href='/myaccount'" />
+</body>
+</html>

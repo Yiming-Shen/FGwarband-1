@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Public bands</title>
+<style>
+table, th, td { border: 1px solid black; text-align: left; }
+</style>
+<script type="text/javascript">
+  
+
+</script>
+</head>
+<body>
+
+<h1>Warband</h1>
+<h2>Warband Name:<input type="text" id="bandnametext" name="bandnametext" value="{{ band['Name'] }}" disabled></h2>
+
+
+Captain
+<table id="wizardTable">
+<tr>
+                                <td>Move</td>
+                                <td>Fight</td>
+                                <td>Shoot</td>
+                                <td>Shield</td>
+                                <td>Morale</td>
+                                <td>Health</td>
+                                <td>Specialism</td>
+                                <td>Weapons and Equipment</td>
+                                <td>Weapons2</td>
+                                <td>Skills</td>
+                                <td>Experience</td>
+                        </tr>
+<tr>
+ 
+                               <td><div calss="capDiv" id="capMoveDiv">
+                                          <input id="capmov" type="number" value="{{band['Captain']['Move']}}" disabled>
+                                          
+                               </div></td>
+				<td><div calss="capDiv" id="capFightDiv">
+                  <input id="capfig" type="number" value="{{band['Captain']['Fight']}}" max="10" disabled>
+                  
+        </div></td>
+                                <td><div calss="capDiv" id="capShootDiv">
+                                          <input id="capsho" type="number" value="{{band['Captain']['Shoot']}}" max="10" disabled>
+                                          
+                                </div></td>
+                                <td><div calss="capDiv" id="capShieldDiv">
+                                           <input id="capshi" type="number" value="{{band['Captain']['Shield']}}" disabled>
+                                           
+                                </div></td>
+                                <td><div calss="capDiv" id="capMoraleDiv">
+                                           <input id="capmor" type="number" value="{{band['Captain']['Morale']}}" max="12" disabled>
+                                           
+                                </div></td>
+                                <td><div calss="capDiv" id="capHealthDiv">
+                                           <input id="caphea" type="number" value="{{band['Captain']['Health']}}" max="20" disabled>
+                                           
+                                </div></td>
+                      
+                                <td><select id="capspecsel" disabled>
+                                                <option value="Empty">Select...</option>
+                                                {% for spec in specs %}
+             					{% if spec == band['Captain']['Specialism']: %}
+                                                <option value="{{ spec }}" selected>{{ spec }}</option>
+                                                {% else %}
+                                                <option value="{{ spec }}">{{ spec }}</option>
+                                                {% endif %}
+                                                {% endfor %}
+                                        </select></td>
+                                <td>
+                                    <select id="capweapsel" disabled>
+                                                <option value="Empty">Select...</option>
+                                                {% for weap in weaps %}
+                                                {% if weap == band['Captain']['Items'][0] %}
+ 						                                                <option value="{{ weap }}" id="{{ weap }}" selected>{{ weap }}</option>
+
+      						{% else %}
+
+                                                <option value="{{ weap }}" id="{{ weap }}">{{ weap }}</option>
+						{%endif%}
+                                                {% endfor %}
+                                        </select></td>
+
+
+                                <td>
+                                    <select id="capweapsel2" disabled>
+                                                <option value="Empty">Select...</option>
+                                                {% for weap in weaps %}
+                                                {% if weap in band['Captain']['Items'][1] %}
+                                                            <option value="{{ weap }}" id="{{ weap }}2" selected>{{ weap }}</option>
+
+                  {% else %}
+
+                                                <option value="{{ weap }}" id="{{ weap }}2">{{ weap }}</option>
+            {%endif%}
+                                                {% endfor %}
+                                        </select></td>
+
+
+
+
+                                <td>
+                                     {% for opt in skills[band['Captain']['Specialism']] %}
+                                        {% if opt in band['Captain']['Skillset'] %}
+						<input type="checkbox"  name="capskil" value="{{opt}}" checked disabled>{{opt}}
+ 					{% else %}
+						<input type="checkbox" name="capskil" class="capsk" value="{{opt}}" disabled>{{opt}}
+					{% endif %}
+				     {% endfor %} 
+                                </td>
+                                <td><div>
+                                          <input id="capexp" type="number" value="{{band['Captain']['Experience']}}" disabled>
+                                          
+                                </div></td>
+                        </tr>
+
+
+ {% if 'Ensign' in band.keys() %} 
+<div id="ensignDiv" style='display: block'>
+
+{%else%}
+<div id="ensignDiv" style='display: none'>
+{%endif%}
+<table id="ensignTable">
+<tr>
+                                <td>Move</td>
+                                <td>Fight</td>
+                                <td>Shoot</td>
+                                <td>Shield</td>
+                                <td>Morale</td>
+                                <td>Health</td>
+                                <td>Specialism</td>
+                                <td>Weapons and Equipment</td>
+                                <td>Skills</td>
+                                <td>Experience</td>
+
+                        </tr>
+
+{% if 'Ensign' in band.keys() %}
+Ensign
+<tr>
+
+<td><div>
+           <input id="enmov" type="number" value="{{band['Ensign']['Move']}}" disabled>
+           
+</div></td>
+                                <td><div>
+                                           <input id="enfig" type="number" value="{{band['Ensign']['Fight']}}" max="6" disabled>
+                                           
+                                </div></td>
+                                <td><div>
+                                           <input id="ensho" type="number" value="{{band['Ensign']['Shoot']}}" max="5" disabled>
+                                           
+                                </div></td>
+                                <td><div>
+                                           <input id="enshi" type="number" value="{{band['Ensign']['Shield']}}">
+                                           
+                                </div></td>
+                                <td><div>
+                                           <input id="enmor" type="number" value="{{band['Ensign']['Morale']}}" max="6" disabled>
+                                           
+                                </div></td>
+                                <td><div>
+                                           <input id="enhea" type="number" value="{{band['Ensign']['Health']}}" max="16" disabled>
+                                           
+                                </div></td>                                <td>
+<select id="ensskillsel" disabled>
+  						<option value="Empty">Select...</option>
+                                                {% for spec in specs %}
+
+						{% if spec == band['Ensign']['Specialism']: %}
+                                                <option value="{{ spec }}" selected>{{ spec }}</option>
+                                                {% else %}
+                                                <option value="{{ spec }}">{{ spec }}</option>
+                                                {% endif %}
+                                                {% endfor %}
+  					</select>
+</td>
+                                <td>
+<select id="ensweapsel" disabled>
+                                                <option value="Empty">Select...</option>
+                                                {% for weap in weaps %}
+                                                {% if weap in band['Ensign']['Items'] %}
+                                                                                                <option value="{{ weap }}" id="{{ weap }}ens" selected>{{ weap }}</option>
+                                                {% else %}
+        
+                                                <option value="{{ weap }}" id="{{ weap }}ens">{{ weap }}</option>
+                                                {%endif%}
+                                                {% endfor %}
+                                        </select>
+</td>
+                                <td>
+{% for opt in skills[band['Ensign']['Specialism']] %}
+                                        {% if opt in band['Ensign']['Skillset'] %}
+                                                <input type="checkbox" name="ensskil"  value="{{opt}}" checked disabled>{{opt}}
+                                        {% else %}
+                                                <input type="checkbox" name="ensskil" class="enssk" value="{{opt}}" disabled>{{opt}}
+                                        {% endif %}
+                                     {% endfor %}
+</td>
+                                <td><div>
+                                          <input id="ensexp" type="number" value="{{apprentice['Ensign']['Experience']}}" disabled>
+                                          
+                                </div></td>
+
+                        </tr>
+
+
+{% endif %}
+</table>
+</div>
+<table id='rosterTable'>
+<tr>
+				<td>Class</td>
+				<td>Move</td>
+				<td>Fight</td>
+				<td>Shoot</td>
+				<td>Shield</td>
+				<td>Morale</td>
+				<td>Health</td>
+				<td>Cost</td>
+				<td>Notes</td>
+			</tr>
+
+{% set p = 1 %}
+{% for trooper in band['Troops'] %}
+<tr>
+<td>
+<select id="troop{{p}}" disabled>
+   <option value="Empty">Empty</option>
+     {% for troop in people.keys() %}
+       {% if troop == trooper: %}
+        <option value="{{ troop }}" id="{{ troop }}{{ p }}" selected >{{ troop }}</option>
+       {% else %}
+        <option value="{{ troop }}" id="{{ troop }}{{ p }}">{{ troop }}</option>
+       {% endif %}
+      {% endfor %}
+</select>
+</td>
+                                <td>{{ people[trooper]['Move'] }}</td>
+                                <td>{{ people[trooper]['Fight'] }}</td>
+                                <td>{{ people[trooper]['Shoot'] }}</td>
+                                <td>{{ people[trooper]['Shield'] }}</td>
+                                <td>{{ people[trooper]['Morale'] }}</td>
+                                <td>{{ people[trooper]['Health'] }}</td>
+                                <td>{{ people[trooper]['Cost'] }}</td>
+                                <td>{{ people[trooper]['Notes'] }}</td>
+                        </tr>
+{% set p = p + 1 %}
+{% endfor %}
+{% for i in range((band['Troops']|length)+1,11) %}
+<tr>
+<td>
+<select id="troop{{i}}" disabled>
+   <option value="Empty">Empty</option>
+     {% for troop in people.keys() %}
+        <option value="{{ troop }}" id="{{ troop }}{{ i }}">{{ troop }}</option>
+      {% endfor %}
+</select>
+</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>0</td>
+                                <td>-</td>
+                        </tr>
+{% endfor %}
+</table>
+<br><br>
+<input id="back2" type="button" value="Back" onclick="window.location.href='/view'" />
+<input id="back" type="button" value="Back to Holderpage" onclick="window.location.href='/myaccount'" />
+</body>
+</html>
+
